@@ -1,3 +1,4 @@
+
 # Build script to compile Resurrection Remix ROM
 
 
@@ -19,17 +20,17 @@ normal='tput sgr0'
 
 
 
-$red
+$yellow
 echo -e ""
 echo -e ""
-echo -e "****************RESURRECTION REMIX ROM KITKAT 4.4+****************"
+echo -e "============ RESURRECTION REMIX ROM ® KITKAT 4.4.+ ============"
 echo -e ""
 echo -e ""
 
 
 
 # Confirm 'make clean'
-$violet
+$green
 echo -e "\n\nDo you want to make clean? \n"
 echo ""
 echo -e "1. Yes"
@@ -62,7 +63,7 @@ echo -e ""
 
 
 # Lunch device
-$red
+$green
 echo -e ""
 echo -e ""
 echo -e "Choose your device from the lunch menu..."
@@ -73,7 +74,7 @@ lunch
 
 
 # Start compilation
-$normal
+$blue
 echo -e ""
 echo -e ""
 echo -e "Starting compilation of Resurrection Remix ROM..."
@@ -92,11 +93,11 @@ echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|
 
 
 # Compilation complete
-$red
+$yellow
 echo -e ""
 echo -e ""
-echo -e "****************RESURRECTION REMIX ROM KITKAT 4.4+****************"
+echo -e "============ RESURRECTION REMIX ROM ® KITKAT 4.4.+ ========"
 echo -e ""
-echo -e "*********************ENJOY THE ROM********************"
+echo -e "====================== ENJOY THE ROM ======================"
 echo -e ""
-echo -e ""
+echo -e "================ WWW.RESURRECTİONREMİX.COM ================"
