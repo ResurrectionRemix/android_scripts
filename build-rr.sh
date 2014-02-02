@@ -19,7 +19,7 @@ normal='tput sgr0'
 
 
 
-$yellow
+$cyan
 echo -e ""
 echo -e ""
 echo -e "============ RESURRECTION REMIX ROM ® KITKAT 4.4.+ ============"
@@ -73,7 +73,7 @@ lunch
 
 
 # Start compilation
-$blue
+$cyan
 echo -e ""
 echo -e ""
 echo -e "Starting compilation of Resurrection Remix ROM..."
@@ -99,4 +99,4 @@ echo -e "============ RESURRECTION REMIX ROM ® KITKAT 4.4.+ ========"
 echo -e ""
 echo -e "====================== ENJOY THE ROM ======================"
 echo -e ""
-echo -e "================ WWW.RESURRECTİONREMIX.COM ================"
+echo -e "================ WWW.RESURRECTİONREMİX.COM ================"
