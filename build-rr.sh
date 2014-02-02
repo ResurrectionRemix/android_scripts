@@ -1,4 +1,3 @@
-
 # Build script to compile Resurrection Remix ROM
 
 
@@ -100,4 +99,4 @@ echo -e "============ RESURRECTION REMIX ROM ® KITKAT 4.4.+ ========"
 echo -e ""
 echo -e "====================== ENJOY THE ROM ======================"
 echo -e ""
-echo -e "================ WWW.RESURRECTİONREMİX.COM ================"
+echo -e "================ WWW.RESURRECTİONREMIX.COM ================"
