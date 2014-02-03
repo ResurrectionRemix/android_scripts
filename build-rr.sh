@@ -50,8 +50,21 @@ fi
 
 
 
+# Get prebuilts
+$violet
+echo -e ""
+echo -e ""
+echo -e "Getting prebuilts..."
+echo -e ""
+echo -e ""
+cd vendor/cm
+./get-prebuilts
+cd ../../
+
+
+
 # Setup environment
-$green
+$yellow
 echo -e ""
 echo -e ""
 echo -e "Setting up build environment..."
