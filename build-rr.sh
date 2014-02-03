@@ -20,6 +20,7 @@ normal='tput sgr0'
 
 
 $cyan
+clear
 echo -e ""
 echo -e ""
 echo -e "============ RESURRECTION REMIX ® ROM KITKAT 4.4.+ ============"
