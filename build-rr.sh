@@ -22,7 +22,17 @@ normal='tput sgr0'
 $cyan
 echo -e ""
 echo -e ""
-echo -e "============ RESURRECTION REMIX ROM ® KITKAT 4.4.+ ============"
+echo -e "============ RESURRECTION REMIX ® ROM KITKAT 4.4.+ ============"
+echo -e ""
+echo -e ""
+echo -e "==============================================================="
+echo -e "=                                                             ="
+echo -e "=            This script will aid you in compiling            ="
+echo -e "=                   Resurrection Remix ® ROM                  ="
+echo -e "=                                                             ="
+echo -e "=                           Enjoy!                            ="
+echo -e "=                                                             ="
+echo -e "==============================================================="
 echo -e ""
 echo -e ""
 
