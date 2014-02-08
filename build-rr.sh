@@ -103,7 +103,7 @@ echo -e ""
 echo -e "Starting compilation of Resurrection Remix ROM..."
 echo -e ""
 echo -e ""
-script -q ~/RR.log -c " mka bacon "
+mka bacon
 echo -e ""
 
 
