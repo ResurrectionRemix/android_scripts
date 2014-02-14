@@ -56,7 +56,7 @@ then
         echo -e "\n\nCleaning... \n\n"
 	echo ""
 	echo ""
-        make clean
+        make clobber
 fi
 
 
