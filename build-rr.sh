@@ -1,6 +1,10 @@
 # Build script to compile Resurrection Remix ROM
 
 
+# No scrollback buffer
+echo -e '\0033\0143'
+
+
 
 # Get intial time of script startup
 res1=$(date +%s.%N)
