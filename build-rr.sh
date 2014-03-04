@@ -23,7 +23,7 @@ normal='tput sgr0'
 
 
 
-$yellow
+$red
 clear
 echo -e ""
 echo -e ""
@@ -87,7 +87,7 @@ cd ../../
 
 
 # Setup environment
-$yellow
+$red
 echo -e ""
 echo -e ""
 echo -e "Setting up build environment..."
@@ -128,7 +128,7 @@ echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|
 
 
 # Compilation complete
-$yellow
+$red
 clear
 echo -e ""
 echo -e ""
