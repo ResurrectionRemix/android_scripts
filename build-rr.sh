@@ -27,8 +27,8 @@ bldcya=${txtbld}$(tput setaf 6) # Bold cyan
 normal='tput sgr0'
 
 
-
-$red
+tput bold
+tput setaf 1
 clear
 echo -e ""
 echo -e ""
@@ -55,71 +55,142 @@ echo -e ""
 echo -e ""
 echo -e ""
 
+sleep 3s
+
+# Clear terminal
+clear
 
 # Confirm 'make clean'
-$green
-echo -e "\n\nDo you want to make clean? \n"
+echo -e "\n\n${bldgrn}  Do you want to make clean?\n"
 echo ""
-echo -e "1. Yes"
-echo -e "2. No"
+echo -e "${bldblu}  1. Yes"
+echo -e "${bldblu}  2. No"
 echo ""
 echo ""
+$normal
 read askclean
 
 if [ "$askclean" == "1" ]
 then
 	echo ""
 	echo ""
-        echo -e "\n\nCleaning... \n\n"
+        echo -e "${bldred}  Compilation will continue after cleaning previous build files... "
 	echo ""
 	echo ""
+else
+	echo ""
+	echo ""
+        echo -e "${bldred}  ROM will be compiled without cleaning previous build files... "
+	echo ""
+	echo ""
+fi
+
+
+# Confirm fetching prebuilts
+echo -e "\n\n${bldgrn}  Do you want to fetch prebuilts?\n  (You don't need to fetch them frequently)"
+echo ""
+echo -e "${bldblu}  1. Yes"
+echo -e "${bldblu}  2. No"
+echo ""
+echo ""
+$normal
+read askprebuilts
+
+
+
+if [ "$askprebuilts" == "1" ]
+then
+	echo ""
+	echo ""
+        echo -e "${bldred}  Prebuilts will be fetched... "
+	echo ""
+	echo ""
+else
+	echo ""
+	echo ""
+        echo -e "${bldred}  Prebuilts won't be fetched... "
+	echo ""
+	echo ""
+fi
+
+
+sleep 2s
+
+# Clear terminal
+clear
+
+
+
+if [ "$askclean" == "1" ]
+then
+	echo ""
+	echo ""
+        echo -e "${bldgrn}  Removing files from previous compilations - Cleaning... "
+	echo ""
+	echo ""
+	$normal
         make clobber
 fi
 
 
 
 # Get prebuilts
-$violet
-echo -e ""
-echo -e ""
-echo -e "Getting prebuilts..."
-echo -e ""
-echo -e ""
-cd vendor/cm
-./get-prebuilts
-cd ../../
+if [ "$askprebuilts" == "1" ]
+then
+	echo -e ""
+	echo -e ""
+	echo -e "${bldgrn}  Fetching prebuilts..."
+	echo -e ""
+	echo -e ""
+	$normal
+	cd vendor/cm
+	./get-prebuilts
+	cd ../../
+fi
 
+
+# Clear terminal
+clear
 
 
 # Setup environment
-$red
 echo -e ""
 echo -e ""
-echo -e "Setting up build environment..."
+echo -e "${bldgrn}  Setting up build environment..."
 echo -e ""
 echo -e ""
+$normal
 . build/envsetup.sh
 
 
 
+# Clear terminal
+clear
+
+
+
 # Lunch device
+echo -e ""
+echo -e ""
+echo -e "${bldcya}  Choose your device from the lunch menu..."
+echo -e ""
+echo -e ""
+$normal
 $green
-echo -e ""
-echo -e ""
-echo -e "Choose your device from the lunch menu..."
-echo -e ""
-echo -e ""
 lunch
 
 
+# Clear terminal
+clear
+
 
 # Start compilation
-$cyan
 echo -e ""
 echo -e ""
-echo -e "Starting compilation of Resurrection Remix ROM..."
+echo -e "${bldcya}  Starting compilation of Resurrection Remix ROM..."
 echo -e ""
 echo -e ""
+$normal
 mka bacon
 echo -e ""
 
@@ -128,12 +199,16 @@ echo -e ""
 # Get elapsed time
 $blue
 res2=$(date +%s.%N)
+echo -e ""
+echo -e ""
 echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|bc ) minutes ($(echo "$res2 - $res1"|bc ) seconds) ${txtrst}"
-
+echo -e ""
+echo -e ""
 
 
 # Compilation complete
-$red
+tput bold
+tput setaf 1
 clear
 echo -e ""
 echo -e ""
@@ -158,3 +233,6 @@ echo -e "                        |_|_\|___||_|  |_||___| /_/\_\                 
 echo -e ""
 echo -e ""
 
+
+# Switch terminal back to normal
+$normal
