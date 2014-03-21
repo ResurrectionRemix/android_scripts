@@ -12,13 +12,18 @@ res1=$(date +%s.%N)
 
 
 # Specify colors for shell
-red='tput setaf 1'
-green='tput setaf 2'
-yellow='tput setaf 3'
-blue='tput setaf 4'
-violet='tput setaf 5'
-cyan='tput setaf 6'
-white='tput setaf 7'
+red='tput setaf 1'              # red
+green='tput setaf 2'            # green
+yellow='tput setaf 3'           # yellow
+blue='tput setaf 4'             # blue
+violet='tput setaf 5'           # violet
+cyan='tput setaf 6'             # cyan
+white='tput setaf 7'            # white
+txtbld=$(tput bold)             # Bold
+bldred=${txtbld}$(tput setaf 1) # Bold red
+bldgrn=${txtbld}$(tput setaf 2) # Bold green
+bldblu=${txtbld}$(tput setaf 4) # Bold blue
+bldcya=${txtbld}$(tput setaf 6) # Bold cyan
 normal='tput sgr0'
 
 
