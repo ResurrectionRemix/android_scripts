@@ -83,22 +83,18 @@ echo -e "${bldblu}  2. No"
 echo ""
 echo ""
 $normal
-read askclean
+read askClean
 
-if [ "$askclean" == "1" ]
+echo ""
+echo ""
+if [ "$askClean" == "1" ]
 then
-	echo ""
-	echo ""
-        echo -e "${bldred}  Compilation will continue after cleaning previous build files... "
-	echo ""
-	echo ""
+    echo -e "${bldred}  Compilation will continue after cleaning previous build files... "
 else
-	echo ""
-	echo ""
-        echo -e "${bldred}  ROM will be compiled without cleaning previous build files... "
-	echo ""
-	echo ""
+    echo -e "${bldred}  ROM will be compiled without cleaning previous build files... "
 fi
+echo ""
+echo ""
 
 
 # Confirm fetching prebuilts
@@ -109,31 +105,27 @@ echo -e "${bldblu}  2. No"
 echo ""
 echo ""
 $normal
-read askprebuilts
+read askPrebuilts
 
 
 
-if [ "$askprebuilts" == "1" ]
+echo ""
+echo ""
+if [ "$askPrebuilts" == "1" ]
 then
-	echo ""
-	echo ""
-        echo -e "${bldred}  Prebuilts will be fetched... "
-	echo ""
-	echo ""
+    echo -e "${bldred}  Prebuilts will be fetched... "
 else
-	echo ""
-	echo ""
-        echo -e "${bldred}  Prebuilts won't be fetched... "
-	echo ""
-	echo ""
+    echo -e "${bldred}  Prebuilts won't be fetched... "
 fi
+echo ""
+echo ""
 
 
 # Confirm toolchain to be used for compilation
 # Linaro or default GCC
 
 echo ""
-echo -e "\n\n${bldgrn}  Toolchain to be used for compilation?\n"
+echo -e "\n\n${bldgrn}  Toolchain selection\n"
 echo ""
 echo -e "${bldgrn}  If you are getting errors in your kernel source,"
 echo -e "  while using the Linaro Toolchain, you need to patch your kernel,"
@@ -144,22 +136,18 @@ echo -e "${bldblu}  2. Linaro"
 echo ""
 echo ""
 $normal
-read askToolchain
+read -p "${bldblu}  Which toolchain do you want to use?[1]: " askToolchain
 
-if [ "$askToolchain" == "1" ]
+echo ""
+echo ""
+if [ "$askToolchain" == "2" ]
 then
-	echo ""
-	echo ""
-        echo -e "${bldred}  Resurrection Remix ROM will be compiled using the default GCC Toolchain..."
-	echo ""
-	echo ""
+    echo -e "${bldred}  Resurrection Remix ROM will be compiled using Linaro Toolchain...... "
 else
-	echo ""
-	echo ""
-        echo -e "${bldred}  Resurrection Remix ROM will be compiled using Linaro Toolchain...... "
-	echo ""
-	echo ""
+    echo -e "${bldred}  Resurrection Remix ROM will be compiled using the default GCC Toolchain..."
 fi
+echo ""
+echo ""
 
 
 sleep 2s
@@ -173,13 +161,13 @@ if [ "$askToolchain" == "2" ]
 then
 	echo ""
 	echo ""
-        echo -e "${bldgrn}  Patching build environment to use Linaro Toolchain... "
+	echo -e "${bldgrn}  Patching build environment to use Linaro Toolchain... "
 	echo ""
 	echo ""
 	$normal
-		cd build
-        patch -p1 < ../patches/linaro/build.patch
-        cd ..
+	cd build
+    patch -p1 < ../patches/linaro/build.patch
+    cd ..
 fi
 
 
@@ -190,21 +178,21 @@ sleep 1s
 clear
 
 
-if [ "$askclean" == "1" ]
+if [ "$askClean" == "1" ]
 then
 	echo ""
 	echo ""
-        echo -e "${bldgrn}  Removing files from previous compilations - Cleaning... "
+	echo -e "${bldgrn}  Removing files from previous compilations - Cleaning... "
 	echo ""
 	echo ""
 	$normal
-        make clobber
+	make clobber
 fi
 
 
 
 # Get prebuilts
-if [ "$askprebuilts" == "1" ]
+if [ "$askPrebuilts" == "1" ]
 then
 	echo -e ""
 	echo -e ""
@@ -310,3 +298,4 @@ echo -e ""
 
 # Switch terminal back to normal
 $normal
+
