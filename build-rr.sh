@@ -136,13 +136,13 @@ echo -e "${bldblu}  2. Linaro"
 echo ""
 echo ""
 $normal
-read -p "${bldblu}  Which toolchain do you want to use?[1]: " askToolchain
+read -p "${bldblu}  Which toolchain do you want to use? " askToolchain
 
 echo ""
 echo ""
 if [ "$askToolchain" == "2" ]
 then
-    echo -e "${bldred}  Resurrection Remix ROM will be compiled using Linaro Toolchain...... "
+    echo -e "${bldred}  Resurrection Remix ROM will be compiled using Linaro Toolchain... "
 else
     echo -e "${bldred}  Resurrection Remix ROM will be compiled using the default GCC Toolchain..."
 fi
@@ -166,13 +166,13 @@ then
 	echo ""
 	$normal
 	cd build
-    patch -p1 < ../patches/linaro/build.patch
-    cd ..
+    	patch -p1 < ../patches/linaro/build.patch
+    	cd ..
 fi
 
 
 
-sleep 1s
+sleep 2s
 
 # Clear terminal
 clear
