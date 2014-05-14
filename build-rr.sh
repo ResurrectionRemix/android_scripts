@@ -129,11 +129,65 @@ else
 fi
 
 
+# Confirm toolchain to be used for compilation
+# Linaro or default GCC
+
+echo ""
+echo -e "\n\n${bldgrn}  Toolchain to be used for compilation?\n"
+echo ""
+echo -e "${bldgrn}  If you are getting errors in your kernel source,"
+echo -e "  while using the Linaro Toolchain, you need to patch your kernel,"
+echo -e "  or else use GCC toolchain for your builds.\n"
+echo ""
+echo -e "${bldblu}  1. GCC"
+echo -e "${bldblu}  2. Linaro"
+echo ""
+echo ""
+$normal
+read askToolchain
+
+if [ "$askToolchain" == "1" ]
+then
+	echo ""
+	echo ""
+        echo -e "${bldred}  Resurrection Remix ROM will be compiled using the default GCC Toolchain..."
+	echo ""
+	echo ""
+else
+	echo ""
+	echo ""
+        echo -e "${bldred}  Resurrection Remix ROM will be compiled using Linaro Toolchain...... "
+	echo ""
+	echo ""
+fi
+
+
 sleep 2s
 
 # Clear terminal
 clear
 
+
+# Apply patch to enable compilation with Linaro Toolchain
+if [ "$askToolchain" == "2" ]
+then
+	echo ""
+	echo ""
+        echo -e "${bldgrn}  Patching build environment to use Linaro Toolchain... "
+	echo ""
+	echo ""
+	$normal
+		cd build
+        patch -p1 < ../patches/linaro/build.patch
+        cd ..
+fi
+
+
+
+sleep 1s
+
+# Clear terminal
+clear
 
 
 if [ "$askclean" == "1" ]
@@ -219,6 +273,11 @@ echo -e ""
 echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|bc ) minutes ($(echo "$res2 - $res1"|bc ) seconds) ${txtrst}"
 echo -e ""
 echo -e ""
+
+# Reverting toolchain to default GCC from linaro
+cd build
+git checkout .
+cd ..
 
 
 # Compilation complete
