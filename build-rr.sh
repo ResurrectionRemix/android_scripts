@@ -167,7 +167,7 @@ then
 	echo ""
 	$normal
 	cd build
-    	patch -p1 < ../patches/linaro/build.patch
+    	patch -p1 < ../patches/.linaro/build.patch
     	cd ..
 fi
 
