@@ -135,8 +135,9 @@ echo -e "${bldblu}  1. GCC"
 echo -e "${bldblu}  2. Linaro"
 echo ""
 echo ""
+echo -e "${bldblu}  Which toolchain do you want to use? \n\n"
 $normal
-read -p "${bldblu}  Which toolchain do you want to use? " askToolchain
+read askToolchain
 
 echo ""
 echo ""
