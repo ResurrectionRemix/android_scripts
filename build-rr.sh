@@ -125,28 +125,35 @@ echo ""
 # Linaro or default GCC
 
 echo ""
-echo -e "\n\n${bldgrn}  Toolchain selection\n"
-echo ""
-echo -e "${bldgrn}  If you are getting errors in your kernel source,"
-echo -e "  while using the Linaro Toolchain, you need to patch your kernel,"
-echo -e "  or else use GCC toolchain for your builds.\n"
-echo ""
-echo -e "${bldblu}  1. GCC"
-echo -e "${bldblu}  2. Linaro"
+echo -e "\n\n${bldgrn}  Linaro toolchain\n"
 echo ""
 echo ""
-echo -e "${bldblu}  Which toolchain do you want to use? \n\n"
+echo -e "${bldblu}  1. NO"
+echo -e "${bldblu}  2. Yes, but only use it for ROM"
+echo -e "${bldblu}  3. Yes, but only use it for KERNEL"
+echo -e "${bldblu}  4. Yes, use it for BOTH"
+echo ""
+echo -e "${bldblu}  Do you want to compile using Linaro? \n\n"
 $normal
-read askToolchain
+read askLinaro
 
 echo ""
 echo ""
-if [ "$askToolchain" == "2" ]
+
+if [ "$askLinaro" == "2" ] || [ "$askLinaro" == "4" ]  
 then
-    echo -e "${bldred}  Resurrection Remix ROM will be compiled using Linaro Toolchain... "
+	echo -e "${bldred}  Resurrection Remix ROM will be compiled using Linaro Toolchain... "
 else
-    echo -e "${bldred}  Resurrection Remix ROM will be compiled using the default GCC Toolchain..."
+	echo -e "${bldred}  Resurrection Remix ROM will be compiled using the default GCC Toolchain..."
 fi
+
+if [ "$askLinaro" == "3" ] || [ "$askLinaro" == "4" ]
+then
+	echo -e "${bldred}  Kernel will be compiled using Linaro Toolchain... "
+else
+	echo -e "${bldred}  Kernel will be compiled using the default GCC Toolchain..."
+fi
+
 echo ""
 echo ""
 
@@ -158,23 +165,36 @@ clear
 
 
 # Apply patch to enable compilation with Linaro Toolchain
-if [ "$askToolchain" == "2" ]
+
+echo ""
+echo ""
+
+if [ "$askLinaro" == "2" ] || [ "$askLinaro" == "4" ]
 then
-	echo ""
-	echo ""
-	echo -e "${bldgrn}  Patching build environment to use Linaro Toolchain... "
-	echo ""
-	echo ""
+	echo -e "${bldgrn}  Patching build environment to use Linaro Toolchain to compile the ROM... "
 	$normal
 	cd build
-    	patch -p1 < ../patches/.linaro/build.patch
-    	cd ..
+	patch -p1 < ../patches/.linaro/android.diff
+	cd ..
 fi
 
+echo ""
+echo ""
+
+if [ "$askLinaro" == "3" ] || [ "$askLinaro" == "4" ]
+then
+	echo -e "${bldgrn}  Patching build environment to use Linaro Toolchain to compile the kernel... "
+	$normal
+	cd build
+	patch -p1 < ../patches/.linaro/kernel.diff
+	cd ..
+fi
+
+echo ""
+echo ""
 
 
 sleep 2s
-
 # Clear terminal
 clear
 
@@ -264,9 +284,12 @@ echo -e ""
 echo -e ""
 
 # Reverting toolchain to default GCC from linaro
-cd build
-git checkout .
-cd ..
+if [ "$askLinaro" == "2" ] || [ "$askLinaro" == "3" ] || [ "$askLinaro" == "4" ]
+then
+	cd build
+	git checkout .
+	cd ..
+fi
 
 
 # Compilation complete
