@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #    Resurrection Remix Compilation Script
 #
 #    Copyright (C) 2014 Shubhang Rathore
