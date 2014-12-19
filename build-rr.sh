@@ -28,7 +28,7 @@ normal='tput sgr0'
 
 
 tput bold
-tput setaf 4
+tput setaf 1
 clear
 echo -e ""
 echo -e ""
@@ -55,9 +55,6 @@ echo -e ""
 echo -e ""
 echo -e ""
 
-
-
-
 sleep 3s
 
 # Clear terminal
@@ -73,7 +70,7 @@ echo ""
 $normal
 read askclean
 
-if [ "$askclean" == "1" ]
+if [ "$askclean" == "3" ]
 then
 	echo ""
 	echo ""
@@ -84,34 +81,6 @@ else
 	echo ""
 	echo ""
         echo -e "${bldred}  ROM will be compiled without cleaning previous build files... "
-	echo ""
-	echo ""
-fi
-
-
-# Confirm fetching prebuilts
-echo -e "\n\n${bldgrn}  Do you want to fetch prebuilts?\n  (You don't need to fetch them frequently)"
-echo ""
-echo -e "${bldblu}  1. Yes"
-echo -e "${bldblu}  2. No"
-echo ""
-echo ""
-$normal
-read askprebuilts
-
-
-
-if [ "$askprebuilts" == "1" ]
-then
-	echo ""
-	echo ""
-        echo -e "${bldred}  Prebuilts will be fetched... "
-	echo ""
-	echo ""
-else
-	echo ""
-	echo ""
-        echo -e "${bldred}  Prebuilts won't be fetched... "
 	echo ""
 	echo ""
 fi
@@ -134,23 +103,6 @@ then
 	$normal
         make clobber
 fi
-
-
-
-# Get prebuilts
-if [ "$askprebuilts" == "1" ]
-then
-	echo -e ""
-	echo -e ""
-	echo -e "${bldgrn}  Fetching prebuilts..."
-	echo -e ""
-	echo -e ""
-	$normal
-	cd vendor/cm
-	./get-prebuilts
-	cd ../../
-fi
-
 
 # Clear terminal
 clear
