@@ -1,21 +1,4 @@
-#!/bin/bash
-
-#    Resurrection Remix Compilation Script
-#
-#    Copyright (C) 2014 Shubhang Rathore
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# Build script to compile Resurrection Remix ROM
 
 
 # No scrollback buffer
@@ -45,7 +28,7 @@ normal='tput sgr0'
 
 
 tput bold
-tput setaf 1
+tput setaf 4
 clear
 echo -e ""
 echo -e ""
@@ -72,6 +55,9 @@ echo -e ""
 echo -e ""
 echo -e ""
 
+
+
+
 sleep 3s
 
 # Clear terminal
@@ -85,18 +71,22 @@ echo -e "${bldblu}  2. No"
 echo ""
 echo ""
 $normal
-read askClean
+read askclean
 
-echo ""
-echo ""
-if [ "$askClean" == "1" ]
+if [ "$askclean" == "1" ]
 then
-    echo -e "${bldred}  Compilation will continue after cleaning previous build files... "
+	echo ""
+	echo ""
+        echo -e "${bldred}  Compilation will continue after cleaning previous build files... "
+	echo ""
+	echo ""
 else
-    echo -e "${bldred}  ROM will be compiled without cleaning previous build files... "
+	echo ""
+	echo ""
+        echo -e "${bldred}  ROM will be compiled without cleaning previous build files... "
+	echo ""
+	echo ""
 fi
-echo ""
-echo ""
 
 
 # Confirm fetching prebuilts
@@ -107,57 +97,24 @@ echo -e "${bldblu}  2. No"
 echo ""
 echo ""
 $normal
-read askPrebuilts
+read askprebuilts
 
 
 
-echo ""
-echo ""
-if [ "$askPrebuilts" == "1" ]
+if [ "$askprebuilts" == "1" ]
 then
-    echo -e "${bldred}  Prebuilts will be fetched... "
+	echo ""
+	echo ""
+        echo -e "${bldred}  Prebuilts will be fetched... "
+	echo ""
+	echo ""
 else
-    echo -e "${bldred}  Prebuilts won't be fetched... "
+	echo ""
+	echo ""
+        echo -e "${bldred}  Prebuilts won't be fetched... "
+	echo ""
+	echo ""
 fi
-echo ""
-echo ""
-
-
-# Confirm toolchain to be used for compilation
-# Linaro or default GCC
-
-echo ""
-echo -e "\n\n${bldgrn}  Linaro toolchain\n"
-echo ""
-echo ""
-echo -e "${bldblu}  1. NO"
-echo -e "${bldblu}  2. Yes, but only use it for ROM"
-echo -e "${bldblu}  3. Yes, but only use it for KERNEL"
-echo -e "${bldblu}  4. Yes, use it for BOTH"
-echo ""
-echo -e "${bldblu}  Do you want to compile using Linaro? \n\n"
-$normal
-read askLinaro
-
-echo ""
-echo ""
-
-if [ "$askLinaro" == "2" ] || [ "$askLinaro" == "4" ]  
-then
-	echo -e "${bldred}  Resurrection Remix ROM will be compiled using Linaro Toolchain... "
-else
-	echo -e "${bldred}  Resurrection Remix ROM will be compiled using the default GCC Toolchain..."
-fi
-
-if [ "$askLinaro" == "3" ] || [ "$askLinaro" == "4" ]
-then
-	echo -e "${bldred}  Kernel will be compiled using Linaro Toolchain... "
-else
-	echo -e "${bldred}  Kernel will be compiled using the default GCC Toolchain..."
-fi
-
-echo ""
-echo ""
 
 
 sleep 2s
@@ -166,56 +123,22 @@ sleep 2s
 clear
 
 
-# Apply patch to enable compilation with Linaro Toolchain
 
-echo ""
-echo ""
-
-if [ "$askLinaro" == "2" ] || [ "$askLinaro" == "4" ]
-then
-	echo -e "${bldgrn}  Patching build environment to use Linaro Toolchain to compile the ROM... "
-	$normal
-	cd build
-	patch -p1 < ../patches/.linaro/android.diff
-	cd ..
-fi
-
-echo ""
-echo ""
-
-if [ "$askLinaro" == "3" ] || [ "$askLinaro" == "4" ]
-then
-	echo -e "${bldgrn}  Patching build environment to use Linaro Toolchain to compile the kernel... "
-	$normal
-	cd build
-	patch -p1 < ../patches/.linaro/kernel.diff
-	cd ..
-fi
-
-echo ""
-echo ""
-
-
-sleep 2s
-# Clear terminal
-clear
-
-
-if [ "$askClean" == "1" ]
+if [ "$askclean" == "1" ]
 then
 	echo ""
 	echo ""
-	echo -e "${bldgrn}  Removing files from previous compilations - Cleaning... "
+        echo -e "${bldgrn}  Removing files from previous compilations - Cleaning... "
 	echo ""
 	echo ""
 	$normal
-	make clobber
+        make clobber
 fi
 
 
 
 # Get prebuilts
-if [ "$askPrebuilts" == "1" ]
+if [ "$askprebuilts" == "1" ]
 then
 	echo -e ""
 	echo -e ""
@@ -285,43 +208,40 @@ echo "${bldgrn}Total time elapsed: ${txtrst}${grn}$(echo "($res2 - $res1) / 60"|
 echo -e ""
 echo -e ""
 
-# Reverting toolchain to default GCC from linaro
-if [ "$askLinaro" == "2" ] || [ "$askLinaro" == "3" ] || [ "$askLinaro" == "4" ]
-then
-	cd build
-	git checkout .
-	cd ..
-fi
-
 
 # Compilation complete
 tput bold
 tput setaf 1
 clear
-echo -e ""
-echo -e ""
-echo -e "      (         (           (    (                       (        )      )  "
-echo -e "      )\ )      )\ )        )\ ) )\ )        (     *   ) )\ )  ( /(   ( /(  "
-echo -e "     (()/( (   (()/(    (  (()/((()/( (      )\    )  /((()/(  )\())  )\()) "
-echo -e "      /(_)))\   /(_))   )\  /(_))/(_)))\   (((_)  ( )(_))/(_))((_)\  ((_)\  "
-echo -e "     (_)) ((_) (_))  _ ((_)(_)) (_)) ((_)  )\___ (_(_())(_))    ((_)  _((_) "
-echo -e "     | _ \| __|/ __|| | | || _ \| _ \| __|((/ __||_   _||_ _|  / _ \ | \| | "
-echo -e "     |   /| _| \__ \| |_| ||   /|   /| _|  | (__   | |   | |  | (_) || .  | "
-echo -e "     |_|_\|___||___/ \___/ |_|_\|_|_\|___|  \___|  |_|  |___|  \___/ |_|\_| "
-echo -e ""
-echo -e ""
-echo -e "                         (           *     (        )                       "
-echo -e "                         )\ )      (       )\ )  ( /(                       "
-echo -e "                        (()/( (    )\))(  (()/(  )\())                      "
-echo -e "                         /(_)))\  ((_)()\  /(_))((_)\                       "
-echo -e "                        (_)) ((_) (_()((_)(_))  __((_)                      "
-echo -e "                        | _ \| __||  \/  ||_ _| \ \/ /                      "
-echo -e "                        |   /| _| | |\/| | | |   >  <                       "
-echo -e "                        |_|_\|___||_|  |_||___| /_/\_\                      "
-echo -e ""
-echo -e ""
+echo -e " "
+echo -e "█████████████████████████████████████████████████████████████"
+echo -e "█░░░░░░██░░░░░░█░░░░░░░░░░░░░░█░░░░░░██░░░░░░█░░░░░░░░░░░░░░█"
+echo -e "█░░▄▀░░██░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█"
+echo -e "█░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░░░░░█"
+echo -e "█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░█████████"
+echo -e "█░░▄▀░░░░░░▄▀░░█░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░░░░░█"
+echo -e "█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░█"
+echo -e "█░░▄▀░░░░░░▄▀░░█░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░░░░░█"
+echo -e "█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀▄▀░░▄▀▄▀░░█░░▄▀░░█████████"
+echo -e "█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░█░░░░▄▀▄▀▄▀░░░░█░░▄▀░░░░░░░░░░█"
+echo -e "█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░███░░░░▄▀░░░░███░░▄▀▄▀▄▀▄▀▄▀░░█"
+echo -e "█░░░░░░██░░░░░░█░░░░░░██░░░░░░█████░░░░░░█████░░░░░░░░░░░░░░█"
+echo -e "█████████████████████████████████████████████████████████████"
+echo -e "█████████████████████████████████████████████████████████████"
+echo -e "█░░░░░░░░░░░░░░█░░░░░░██░░░░░░█░░░░░░██████████░░░░░░█░░░░░░█"
+echo -e "█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░░░░░██░░▄▀░░█░░▄▀░░█"
+echo -e "█░░▄▀░░░░░░░░░░█░░▄▀░░██░░▄▀░░█░░▄▀▄▀▄▀▄▀▄▀░░██░░▄▀░░█░░▄▀░░█"
+echo -e "█░░▄▀░░█████████░░▄▀░░██░░▄▀░░█░░▄▀░░░░░░▄▀░░██░░▄▀░░█░░▄▀░░█"
+echo -e "█░░▄▀░░░░░░░░░░█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░▄▀░░█"
+echo -e "█░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░▄▀░░█"
+echo -e "█░░▄▀░░░░░░░░░░█░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░██░░▄▀░░█░░░░░░█"
+echo -e "█░░▄▀░░█████████░░▄▀░░██░░▄▀░░█░░▄▀░░██░░▄▀░░░░░░▄▀░░████████"
+echo -e "█░░▄▀░░█████████░░▄▀░░░░░░▄▀░░█░░▄▀░░██░░▄▀▄▀▄▀▄▀▄▀░░█░░░░░░█"
+echo -e "█░░▄▀░░█████████░░▄▀▄▀▄▀▄▀▄▀░░█░░▄▀░░██░░░░░░░░░░▄▀░░█░░▄▀░░█"
+echo -e "█░░░░░░█████████░░░░░░░░░░░░░░█░░░░░░██████████░░░░░░█░░░░░░█"
+echo -e "█████████████████████████████████████████████████████████████"
+echo -e " "
 
 
 # Switch terminal back to normal
 $normal
-
